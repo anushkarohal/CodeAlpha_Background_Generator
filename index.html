@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Background Color Generator</title>
+    <style>
+        body {
+            text-align: center;
+            padding: 20px;
+            transition: background-color 0.5s;
+        }
+        #color-code {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <p id="color-code">#FFFFFF</p>
+    <button id="generate-color">Generate Color</button>
+    <button id="copy-color">Copy Color</button>
+
+    <script>
+        function generateRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        const body = document.body;
+        const colorCode = document.getElementById('color-code');
+        const generateButton = document.getElementById('generate-color');
+        const copyButton = document.getElementById('copy-color');
+
+        generateButton.addEventListener('click', () => {
+            const randomColor = generateRandomColor();
+            body.style.backgroundColor = randomColor;
+            colorCode.textContent = randomColor;
+        });
+
+        copyButton.addEventListener('click', () => {
+            const colorText = colorCode.textContent;
+            const tempInput = document.createElement('input');
+            document.body.appendChild(tempInput);
+            tempInput.setAttribute('value', colorText);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            alert('Color code copied to clipboard: ' + colorText);
+        });
+    </script>
+</body>
+</html>
